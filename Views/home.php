@@ -1,17 +1,20 @@
-<?php include __DIR__ . '/partials/header.php'; ?>
+<?php include '../app/Views/partials/header.php'; ?>
 
-<h1>Bem-vindo ao AniStream</h1>
-<p>A plataforma para você assistir e organizar seus animes favoritos.</p>
-
-<section>
-  <h2>Destaques</h2>
-  <?php foreach ($animesDestaque as $anime): ?>
-    <article>
-      <h3><?= htmlspecialchars($anime['titulo']) ?></h3>
-      <p><?= htmlspecialchars($anime['descricao']) ?></p>
-      <a href="/anime/<?= $anime['id'] ?>">Ver detalhes</a>
-    </article>
-  <?php endforeach; ?>
+<section class="hero">
+    <h1>Bem-vindo ao AniStream</h1>
+    <p>Explore o melhor dos animes em um só lugar!</p>
+    <a href="/animes" class="btn">Ver Catálogo</a>
 </section>
 
-<?php include __DIR__ . '/partials/footer.php'; ?>
+<section class="categorias-destaque">
+    <h2>Categorias em Destaque</h2>
+    <div class="categorias-lista">
+        <?php foreach ($categorias as $categoria): ?>
+            <a href="/categorias/<?= $categoria['id'] ?>" class="categoria">
+                <?= htmlspecialchars($categoria['nome']) ?>
+            </a>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<?php include '../app/Views/partials/footer.php'; ?>
