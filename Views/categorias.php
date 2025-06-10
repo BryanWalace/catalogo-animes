@@ -1,4 +1,4 @@
-<?php include '../app/Views/partials/header.php'; ?>
+<?php include 'partials/header.php'; ?>
 
 <h1>Categorias</h1>
 <ul class="categorias-lista">
@@ -11,5 +11,5 @@
     <?php endforeach; ?>
 </ul>
 
-<?php include '../app/Views/partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
 

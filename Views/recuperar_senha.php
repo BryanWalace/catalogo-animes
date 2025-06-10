@@ -1,4 +1,4 @@
-<?php include '../app/Views/partials/header.php'; ?>
+<?php include 'partials/header.php'; ?>
 
 <h1>Recuperar Senha</h1>
 <form action="/auth/recuperar" method="POST">
@@ -13,4 +13,4 @@
     <button type="submit">Recuperar Senha</button>
 </form>
 
-<?php include '../app/Views/partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>

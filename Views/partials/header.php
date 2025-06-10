@@ -8,10 +8,10 @@
 <body>
     <header>
         <nav>
-            <a href="/">Início</a>
-            <a href="/animes">Animes</a>
-            <a href="/categorias">Categorias</a>
-            <a href="/login">Login</a>
+            <a href="home.php">Início</a>
+            <a href="animes.php">Animes</a>
+            <a href="categorias.php">Categorias</a>
+            <a href="login.php">Login</a>
         </nav>
     </header>
     <main>

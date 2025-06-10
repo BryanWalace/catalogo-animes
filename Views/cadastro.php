@@ -1,4 +1,4 @@
-<?php include '../app/Views/partials/header.php'; ?>
+<?php include 'partials/header.php'; ?>
 
 <h1>Cadastro</h1>
 <form action="/auth/register" method="POST">
@@ -29,4 +29,4 @@
     <button type="submit">Cadastrar</button>
 </form>
 
-<?php include '../app/Views/partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>

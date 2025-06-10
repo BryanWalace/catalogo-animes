@@ -1,4 +1,4 @@
-<?php include '../app/Views/partials/header.php'; ?>
+<?php include 'partials/header.php'; ?>
 
 <h1>Login</h1>
 <form action="/auth/login" method="POST">
@@ -13,8 +13,8 @@
     <button type="submit">Entrar</button>
 </form>
 
-<p><a href="/recuperar-senha">Esqueceu a senha?</a></p>
-<p>Não tem conta? <a href="/cadastro">Cadastre-se</a></p>
+<p><a href="recuperar_senha.php">Esqueceu a senha?</a></p>
+<p>Não tem conta? <a href="cadastro.php">Cadastre-se</a></p>
 
-<?php include '../app/Views/partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
 
