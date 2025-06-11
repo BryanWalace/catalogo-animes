@@ -1,9 +1,9 @@
-<?php include '../app/Views/partials/header.php'; ?>
+<?php include 'partials/header.php'; ?>
 
 <section class="hero">
     <h1>Bem-vindo ao AniStream</h1>
     <p>Explore o melhor dos animes em um só lugar!</p>
-    <a href="/animes" class="btn">Ver Catálogo</a>
+    <a href="animes.php" class="btn">Ver Catálogo</a>
 </section>
 
 <section class="categorias-destaque">
@@ -17,4 +17,4 @@
     </div>
 </section>
 
-<?php include '../app/Views/partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>

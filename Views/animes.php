@@ -1,4 +1,4 @@
-<?php include '../app/Views/partials/header.php'; ?>
+<?php include 'partials/header.php'; ?>
 
 <h1>Catálogo de Animes</h1>
 <div class="animes-grid">
@@ -12,4 +12,4 @@
     <?php endforeach; ?>
 </div>
 
-<?php include '../app/Views/partials/footer.php'; ?>
+<?php include 'partials/footer.php'; ?>
