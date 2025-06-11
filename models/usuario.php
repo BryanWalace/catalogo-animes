@@ -18,7 +18,7 @@
 
         public static function avaliar(int $idUsuario, int $idObra, string $comentario, string $tipoAvaliacao) {    //O tipo de avaliação será apenas positiva e negativa, sendo parecido com a steam,
             $conn = Banco::getConn();                                                                               // onde as avaliações são classicadas como poistiva ou negativa
-            $sql = $conn->prepare("INSERT INTO avaliacaos(fk_obra, fk_usuario, comentario, tipoAvaliacao) VALUES (?,?,?,?)");
+            $sql = $conn->prepare("INSERT INTO avaliacoes(fk_obra, fk_usuario, comentario, tipoAvaliacao) VALUES (?,?,?,?)");
             $sql->bindParam(1, $idObra);
             $sql->bindParam(2, $idUsuario);
             $sql->bindParam(3, $comentario);
@@ -47,24 +47,24 @@
             }
         }
 
-        public static function apagarAvaliacao() {
-            //implementar
-        }
-
-        public static function editarAvaliacao() {
-            //implementar
+        public static function apagarAvaliacao(int $idAvaliacao) {
+            $conn = Banco::getConn();
+            $sql = $conn->prepare("DELETE FROM avaliacoes WHERE id_avaliacao = ?");
+            $sql->bindParam(1, $idAvaliacao);
+            $sql->execute();
         }
 
         public static function listarUsuarios() {
-            //implementar
+            $conn = Banco::getConn();
+            $sql = $conn->query("SELECT * FROM usuarios");
+            return $sql->fetch(PDO::FETCH_OBJ);
         }
 
-        public static function apagarUsuario() {
-            //implementar
-        }
-
-        public static function buscarUsuario() {
-            //implementar
+        public static function apagarUsuario(int $idUsuario) {
+            $conn = Banco::getConn();
+            $sql = $conn->prepare("DELETE FROM usuarios WHERE id_usuario = ?");
+            $sql->bindParam(1, $idUsuario);
+            $sql->execute();
         }
     }
 
