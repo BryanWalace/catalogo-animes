@@ -3,22 +3,34 @@
     require_once __DIR__ . "/../config/banco.php";
 
     class Obra {
-        public static function cadastrar(string $titulo, string $tipoMidia, string $genero, string $duracao) { //o tipo da midia é define se é ep(serie) ou horas(filme)
+        public static function cadastrar(
+            string $titulo,
+            string $tipoMidia,
+            string $genero,
+            string $duracao,
+            string $descricao,
+            string $linkImagem
+        ) {
             $conn = Banco::getConn();
-            $sql = $conn->prepare("INSERT INTO obras(titulo, tipoMidia, genero, duracao) VALUES (?,?,?,?)");
+            $sql = $conn->prepare("INSERT INTO obras (titulo, tipo_midia, genero, duracao, descricao, link_imagem) VALUES (?, ?, ?, ?, ?, ?)");
+            
             $sql->bindParam(1, $titulo);
             $sql->bindParam(2, $tipoMidia);
             $sql->bindParam(3, $genero);
             $sql->bindParam(4, $duracao);
+            $sql->bindParam(5, $descricao);
+            $sql->bindParam(6, $linkImagem);
+            
             $sql->execute();
         }
+        
 
         public static function listar() { //retorna já como objetos, pode mudar se preferir
             $conn = Banco::getConn();
             $query = $conn->query("SELECT * FROM obras"); 
 
             if($query) {
-                return $query->fetchAll(PDO::FETCH_OBJ);
+                return $query->fetchAll();
             } else {
                 return [];
             }
@@ -42,7 +54,8 @@
             $conn = Banco::getConn();
             $sql = $conn->prepare("SELECT * FROM obras WHERE genero = ?");
             $sql->bindParam(1, $genero);
-            return $sql->execute();
+            $sql->execute();
+            return $sql->fetchAll();
         }
     }
 

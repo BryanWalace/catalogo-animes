@@ -2,7 +2,7 @@
 
     class Banco{
         public static function getConn() {
-            return new PDO("mysql:host=localhost;dbname=catalogo_animes", "root", "");
+            return new PDO("mysql:host=localhost;port=3307;dbname=catalogo_animes", "root", "");
         }
 
         public static function criaBanco() {
@@ -13,23 +13,25 @@
                 CREATE DATABASE catalogo_animes;
                 
                 CREATE TABLE usuarios(
-                    Id_Usuario INT AUTO_INCREMENT,
-                    Nome VARCHAR(40) NOT NULL,
-                    Email VARCHAR(50) NOT NULL,
-                    Senha VARCHAR(100) NOT NULL,
-                    CPF VARCHAR(11) NOT NULL,
-                    Data_Nascimento Date,
-                    Categoria_preferida Varchar(20),
+                    id_usuario INT AUTO_INCREMENT,
+                    nome VARCHAR(40) NOT NULL,
+                    email VARCHAR(50) NOT NULL,
+                    senha VARCHAR(100) NOT NULL,
+                    cpf VARCHAR(11) NOT NULL,
+                    data_nascimento Date,
+                    categoria_preferida Varchar(20),
                     
                     PRIMARY KEY (Id_Usuario)
                 );
                 
                 CREATE TABLE Obras(
-                    Id_Obra INT AUTO_INCREMENT,
-                    Titulo VARCHAR(50) NOT NULL,
-                    Tipo_Midia VARCHAR(15) NOT NULL,
-                    Genero VARCHAR(15) NOT NULL,
-                    Duracao VARCHAR(15) NOT NULL,
+                    id_obra INT AUTO_INCREMENT PRIMARY KEY,
+                    titulo VARCHAR(100) NOT NULL,
+                    tipo_midia VARCHAR(50) NOT NULL,
+                    genero VARCHAR(50) NOT NULL,
+                    duracao VARCHAR(20) NOT NULL,
+                    descricao TEXT NOT NULL,
+                    link_imagem VARCHAR(255) NOT NULL, 
                     
                     PRIMARY KEY (Id_Obra)
                 );
@@ -37,27 +39,37 @@
                 CREATE TABLE Avaliacoes(
                     FK_Obra INT NOT NULL,
                     FK_Usuario INT NOT NULL,
-                    Comentario VARCHAR(150),
-                    Tipo_Avaliacao VARCHAR(15),
+                    comentario VARCHAR(150),
+                    tipo_avaliacao VARCHAR(15),
                     
                     PRIMARY KEY (FK_Obra, FK_Usuario),
                     FOREIGN KEY (FK_Obra) REFERENCES Obras(Id_Obra),
                     FOREIGN KEY (FK_Usuario) REFERENCES Usuarios(Id_Usuario)
                 );
 
-                INSERT INTO usuarios (Nome, Email, Senha, CPF, Data_Nascimento, Categoria_preferida) VALUES
+                INSERT INTO usuarios (nome, email, senha, cpf, data_nascimento, categoria_preferida) VALUES
                 ('Lucas Martins', 'lucas.martins@email.com', 'senha123', '12345678901', '1995-06-15', 'Ação'),
                 ('Mariana Souza', 'mariana.souza@email.com', 'senha456', '23456789012', '1998-03-22', 'Romance'),
                 ('Carlos Silva', 'carlos.silva@email.com', 'senha789', '34567890123', '1992-11-30', 'Comédia'),
                 ('Ana Oliveira', 'ana.oliveira@email.com', 'senha321', '45678901234', '2000-01-10', 'Fantasia'),
                 ('João Pereira', 'joao.pereira@email.com', 'senha654', '56789012345', '1990-08-05', 'Terror');
 
-                INSERT INTO obras (Titulo, Tipo_Midia, Genero, Duracao) VALUES
-                ('Attack on Titan', 'Anime', 'Ação', '24 min'),
-                ('Your Name', 'Filme', 'Romance', '1h 46min'),
-                ('One Punch Man', 'Anime', 'Comédia', '23 min'),
-                ('Spirited Away', 'Filme', 'Fantasia', '2h 5min'),
-                ('Another', 'Anime', 'Terror', '24 min');
+                INSERT INTO obras (Titulo, Tipo_Midia, Genero, Duracao, Descricao, Link_Imagem) VALUES
+                ('Attack on Titan', 'Anime', 'Ação', '24 min',
+                'Em um mundo onde a humanidade vive cercada por muralhas gigantes para se proteger de titãs devoradores de humanos, Eren Yeager decide lutar pela sobrevivência da raça humana após presenciar a destruição de sua cidade.',
+                'https://static.wikia.nocookie.net/shingekinokyojin/images/d/d8/Attack_on_Titan_Season_1.jpg'),
+                ('Your Name', 'Filme', 'Romance', '1h 46min',
+                'Dois jovens desconhecidos, Mitsuha e Taki, trocam de corpos misteriosamente enquanto vivem em cidades diferentes. Conforme os eventos se repetem, eles criam um laço profundo e tentam se encontrar antes que algo trágico aconteça.',
+                'https://cdn.myanimelist.net/images/anime/5/87048.jpg'),
+                ('One Punch Man', 'Anime', 'Comédia', '23 min',
+                'Saitama é um super-herói tão poderoso que derrota qualquer inimigo com apenas um soco, mas isso o deixa entediado e frustrado. Ele busca um oponente digno enquanto enfrenta monstros e heróis da Associação de Heróis.',
+                'https://cdn.myanimelist.net/images/anime/12/76049.jpg'),
+                ('Spirited Away', 'Filme', 'Fantasia', '2h 5min',
+                'Chihiro, uma menina de 10 anos, se perde em um mundo mágico dominado por espíritos, bruxas e criaturas místicas. Ela deve trabalhar em uma casa de banhos para libertar seus pais, que foram transformados em porcos.',
+                'https://cdn.myanimelist.net/images/anime/5/87078.jpg'),
+                ('Another', 'Anime', 'Terror', '24 min',
+                'Koichi Sakakibara transfere-se para uma escola onde uma maldição misteriosa leva à morte alunos e familiares. Junto da enigmática Mei Misaki, ele tenta desvendar os segredos da turma 3-3 e pôr fim à tragédia.',
+                'https://cdn.myanimelist.net/images/anime/11/75138.jpg');
 
                 INSERT INTO avaliacoes (FK_Obra, FK_Usuario, Comentario, Tipo_Avaliacao) VALUES
                 (1, 1, 'Incrível e cheio de ação!', 'Positiva'),
