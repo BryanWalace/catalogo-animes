@@ -1,5 +1,5 @@
 <?php
-
+    define('BASE_URL', '/catalogo-animes');
     class Banco{
         public static function getConn() {
             return new PDO("mysql:host=localhost;port=3307;dbname=catalogo_animes", "root", "");
