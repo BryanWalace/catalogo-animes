@@ -122,19 +122,44 @@ http://localhost/catalogo-animes/
 
 ```
 .
-├── src/                          # Código fonte da aplicação
-│   ├── Controllers/              # Classes de controle (e.g., AuthController)
-│   ├── Models/                   # Classes de modelo (e.g., Obra, Usuario, Banco)
-│   ├── Views/                    # Arquivos de visualização (HTML, PHTML)
-│   ├── Utils/                    # Funções utilitárias (e.g., helpers, sanitização)
-│   └── public/                   # Arquivos públicos (CSS, JS, imagens, index.php)
-│       ├── index.php             # Ponto de entrada da aplicação
-│       ├── css/
-│       ├── js/
-│       └── img/
-├── .env.example                  # Exemplo de variáveis de ambiente (se aplicável)
-├── composer.json                 # Para gerenciamento de dependências (se aplicável)
-└── README.md                     # Este arquivo
+├── assets/
+│   └── css/
+│       └── style.css                    # Estilo principal da aplicação
+├── config/
+│   └── banco.php                        # Conexão com o banco de dados
+├── controllers/
+│   ├── AnimeController.php
+│   ├── AuthController.php
+│   ├── AvaliacaoController.php
+│   ├── CategoriaController.php
+│   └── HomeController.php              # Lógica dos controladores
+├── docs/                                # Documentação do projeto
+├── models/
+│   ├── avaliacao.php
+│   ├── obra.php
+│   └── usuario.php                      # Modelos da aplicação
+├── views/
+│   ├── animes/
+│   │   ├── editar.php
+│   │   ├── novo.php
+│   │   └── ver.php
+│   └── partials/
+│       ├── footer.php
+│       ├── header.php
+│       ├── admin.php
+│       ├── animes.php
+│       ├── cadastro.php
+│       ├── categoria_animes.php
+│       ├── categorias.php
+│       ├── home.php
+│       ├── login.php
+│       └── recuperar_senha.php        # Fragmentos e páginas completas
+├── .htaccess                            # Configuração de URL amigável para Apache
+├── debug.log                            # Log de depuração
+├── index.php                            # Ponto de entrada principal
+├── README.md                            # Documentação geral do projeto
+├── setup.php                            # Script de criação/população do banco
+└── sqlDoBanco.txt                       # Script SQL alternativo ou auxiliar
 ```
 
 ---
