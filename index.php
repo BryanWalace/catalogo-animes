@@ -1,58 +1,59 @@
 <?php
-
-// Mini gerenciador de rotas usando match
-$url = $_GET['url'] ?? null;
-$url = explode("/", $url ?? '');
-
-$pagina = $url[0] ?? '';
-
-if (isset($url[1])) {
-    $pagina = "{$url[0]}/{$url[1]}";
-}
-
-if (!isset($_SESSION)) {
+if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
 
-// Inclui controllers
-require __DIR__ . '/controllers/HomeController.php';
-require __DIR__ . '/controllers/AuthController.php';
-require __DIR__ . '/controllers/AnimeController.php';
-require __DIR__ . '/controllers/CategoriaController.php';
-require __DIR__ . '/controllers/PostController.php';
-require __DIR__ . '/controllers/UserController.php';
+require_once __DIR__ . '/config/banco.php';
 
-match ($pagina) {
-    // Autenticação
-    'login'         => AuthController::login(),
-    'logout'        => AuthController::logout(),
+require_once __DIR__ . '/controllers/HomeController.php';
+require_once __DIR__ . '/controllers/AuthController.php';
+require_once __DIR__ . '/controllers/AnimeController.php';
+require_once __DIR__ . '/controllers/CategoriaController.php';
+require_once __DIR__ . '/controllers/AvaliacaoController.php';
 
-    // Animes
-    'animes'        => AnimeController::index(),
-    'animes/novo'   => AnimeController::novo(),
-    'animes/criar'  => AnimeController::criar(),
-    'animes/apagar' => AnimeController::apagar($url[2] ?? null),
+$request = $_GET['url'] ?? '';
 
-    // Categorias
-    'categorias'            => CategoriaController::index(),
-    'categorias/novo'       => CategoriaController::novo(),
-    'categorias/apagar'     => CategoriaController::apagar($url[2] ?? null),
-    'categorias/criar'      => CategoriaController::criar(),
+$segments = explode('/', $request);
 
-    // Posts se necessario pra quem for fazer essa parte, (não é obrigatório)
-    'posts'                 => PostController::index(),
-    'posts/novo'            => PostController::novo(),
-    'posts/apagar'          => PostController::apagar($url[2] ?? null),
-    'posts/criar'           => PostController::criar(),
+$main_route = $segments[0] ?? 'home';
 
-    // Usuários
-    'usuarios'              => UserController::index(),
-    'usuarios/novo'         => UserController::novo(),
-    'usuarios/apagar'       => UserController::apagar($url[2] ?? null),
-    'usuarios/criar'        => UserController::criar(),
+match ($main_route) {
+    'home' => HomeController::index(),
+    
+    'login' => AuthController::login(),
+    'auth' => match($segments[1] ?? '') {
+        'login' => AuthController::processarLogin(),
+        'register' => AuthController::processarRegister(),
+        default => header('Location: ' . BASE_URL . '/'),
+    },
+    'logout' => AuthController::logout(),
+    'cadastro' => AuthController::register(),
+    
+    'animes' => match($segments[1] ?? 'index') {
+        'index' => AnimeController::index(),
+        'ver' => AnimeController::ver($segments[2] ?? null),
+        'novo' => AnimeController::novo(),
+        'criar' => AnimeController::criar(),
+        'editar' => AnimeController::editar($segments[2] ?? null),
+        'atualizar' => AnimeController::atualizar(),
+        'apagar' => AnimeController::apagar($segments[2] ?? null),
+        default => header('Location: ' . BASE_URL . '/animes'),
+    },
+    
+    'categorias' => match($segments[1] ?? 'index') {
+        'index' => CategoriaController::index(),
+        'ver' => CategoriaController::ver($segments[2] ?? null),
+        default => header('Location: ' . BASE_URL . '/categorias'),
+    },
 
-    // Página inicial
-    default                 => HomeController::index(),
+    'avaliacoes' => match($segments[1] ?? '') {
+        'criar' => AvaliacaoController::criar(),
+        default => header('Location: ' . BASE_URL . '/'),
+    },
+    
+    'admin' => AnimeController::adminPanel(),
+
+    default => HomeController::index(),
 };
 
 exit;
