@@ -25,7 +25,7 @@
         }
         
 
-        public static function listar() { //retorna já como objetos, pode mudar se preferir
+        public static function listar() {
             $conn = Banco::getConn();
             $query = $conn->query("SELECT * FROM obras"); 
 
@@ -41,14 +41,38 @@
             $sql = $conn->prepare("DELETE FROM obras WHERE id_obra = ?");
             $sql->bindParam(1, $idObra);
             return $sql->execute();
+
+            return $sql->fetch(PDO::FETCH_OBJ);
         }
 
+        public static function atualizar(int $id, string $titulo, string $tipoMidia, string $genero, string $duracao, string $descricao, string $linkImagem) {
+        $conn = Banco::getConn();
+        $sql = $conn->prepare("UPDATE obras SET 
+            titulo = ?, 
+            tipo_midia = ?, 
+            genero = ?, 
+            duracao = ?, 
+            descricao = ?, 
+            link_imagem = ? 
+            WHERE id_obra = ?");
+
+        $sql->bindParam(1, $titulo);
+        $sql->bindParam(2, $tipoMidia);
+        $sql->bindParam(3, $genero);
+        $sql->bindParam(4, $duracao);
+        $sql->bindParam(5, $descricao);
+        $sql->bindParam(6, $linkImagem);
+        $sql->bindParam(7, $id);
+        $sql->execute();
+    }
+
         public static function buscar(int $idObra) {
-            $conn = Banco::getConn();
-            $sql = $conn->prepare("SELECT * FROM obras WHERE id_obra = ?");
-            $sql->bindParam(1, $idObra);
-            return $sql->execute();
-        }
+    $conn = Banco::getConn();
+    $sql = $conn->prepare("SELECT * FROM obras WHERE id_obra = ?");
+    $sql->bindParam(1, $idObra);
+    $sql->execute();
+    return $sql->fetch(PDO::FETCH_OBJ);
+}
 
         public static function buscarPorGenero(string $genero) {
             $conn = Banco::getConn();
@@ -57,6 +81,12 @@
             $sql->execute();
             return $sql->fetchAll();
         }
+
+        public static function listarGenerosUnicos() {
+        $conn = Banco::getConn();
+        $query = $conn->query("SELECT DISTINCT genero FROM obras ORDER BY genero ASC"); 
+        return $query->fetchAll(PDO::FETCH_COLUMN, 0);
+    }
     }
 
 ?>
