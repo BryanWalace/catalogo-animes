@@ -1,8 +1,8 @@
 <?php include 'partials/header.php'; ?>
 
 <h1>Cadastro</h1>
-<form action="/auth/register" method="POST">
-    <input type="hidden" name="csrf_token" value="<?= $csrfToken ?>">
+
+<form action="<?= BASE_URL ?>/auth/register" method="POST">
 
     <label>Nome:</label>
     <input type="text" name="nome" required>
@@ -20,16 +20,16 @@
     <input type="date" name="nascimento" required>
 
     <label>Categoria Preferida:</label>
-    <select name="categoria_id" required>
-        <option value="1">Ação</option>
-        <option value="2">Aventura</option>
-        <option value="3">Comédia</option>
-        <option value="4">Drama</option>
-        <option value="5">Fantasia</option>
-        <option value="6">Romance</option>
-        <option value="7">Terror</option>
-        <option value="8">Esporte</option>
-        <option value="9">Ficção Científica</option>
+    <select name="categoria_preferida" required>
+        <option value="Ação">Ação</option>
+        <option value="Aventura">Aventura</option>
+        <option value="Comédia">Comédia</option>
+        <option value="Drama">Drama</option>
+        <option value="Fantasia">Fantasia</option>
+        <option value="Romance">Romance</option>
+        <option value="Terror">Terror</option>
+        <option value="Esporte">Esporte</option>
+        <option value="Ficção Científica">Ficção Científica</option>
     </select>
 
     <button type="submit">Cadastrar</button>
