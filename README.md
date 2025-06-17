@@ -9,6 +9,10 @@ O **Catálogo de Animes** é uma aplicação web desenvolvida em PHP que permite
 
 ---
 
+## Video apresentação do projeto
+
+Video da apresentação - [Clique Aqui](https://youtu.be/SBoKLxr-d1Q).
+
 ## ✨ Funcionalidades Principais
 
 * **Listagem de Obras:** Exibe todos os animes e filmes disponíveis no catálogo.
